@@ -16,7 +16,7 @@ jobs:
       
       - name: Set short SHA
         id: vars
-        run: echo "SHORT_SHA=$(echo ${{ github.sha }} | cut -c1-8)" >> $GITHUB_ENV
+        run: echo "SHORT_SHA=$(echo ${{ github.sha }} | cut -c1-7)" >> $GITHUB_ENV
       
       - name: Debug variables
         run: |
