@@ -1,0 +1,25 @@
+name: Create GitHub Release
+on:
+  pull_request:
+    branches:
+      - main
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Set short SHA
+        id: vars
+        run: echo "SHORT_SHA=$(echo ${{ github.sha }} | cut -c1-7)" >> $GITHUB_ENV
+      
+      - name: Debug variables
+        run: |
+          echo "Full SHA: ${{ github.sha }}"
+          echo "Short SHA from ENV: ${{ env.SHORT_SHA }}"
+          echo "PR Title: ${{ github.event.pull_request.title }}"
