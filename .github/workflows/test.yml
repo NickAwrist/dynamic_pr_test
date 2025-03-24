@@ -14,18 +14,12 @@ jobs:
         with:
           fetch-depth: 0
       
-      - name: Extract short SHA
-        id: extract_sha
-        run: |
-          git rev-parse --short=7 HEAD > short_sha.txt
-          echo "short_sha=$(cat short_sha.txt)" >> $GITHUB_OUTPUT
+      - name: Set short SHA
+        id: vars
+        run: echo "SHORT_SHA=$(echo ${{ github.sha }} | cut -c1-7)" >> $GITHUB_ENV
       
-      - name: Print GITHUB_OUTPUT file
+      - name: Debug variables
         run: |
-          echo "GITHUB_OUTPUT file path: $GITHUB_OUTPUT"
-          echo "Contents of GITHUB_OUTPUT:"
-          cat $GITHUB_OUTPUT
-          
-      - name: Verify output variable
-        run: |
-          echo "The extracted short SHA is: ${{ steps.extract_sha.outputs.short_sha }}"
+          echo "Full SHA: ${{ github.sha }}"
+          echo "Short SHA from ENV: ${{ env.SHORT_SHA }}"
+          echo "PR Title: ${{ github.event.pull_request.title }}"
