@@ -1,10 +1,8 @@
 name: Create GitHub Release
-
 on:
   pull_request:
     branches:
       - main
-
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -22,3 +20,12 @@ jobs:
           git rev-parse --short=7 HEAD > short_sha.txt
           echo "short_sha=$(cat short_sha.txt)" >> $GITHUB_OUTPUT
       
+      - name: Print GITHUB_OUTPUT file
+        run: |
+          echo "GITHUB_OUTPUT file path: $GITHUB_OUTPUT"
+          echo "Contents of GITHUB_OUTPUT:"
+          cat $GITHUB_OUTPUT
+          
+      - name: Verify output variable
+        run: |
+          echo "The extracted short SHA is: ${{ steps.extract_sha.outputs.short_sha }}"
