@@ -19,6 +19,5 @@ jobs:
       - name: Extract short SHA
         id: extract_sha
         run: |
-          SHORT_SHA=$(git rev-parse --short=7 ${{ github.sha }})
-          echo "short_sha=$SHORT_SHA" >> $GITHUB_OUTPUT
+          echo "short_sha=${GITHUB_SHA:0:7}" >> $GITHUB_OUTPUT
       
