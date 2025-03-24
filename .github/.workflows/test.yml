@@ -1,0 +1,24 @@
+name: Create GitHub Release
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Extract short SHA
+        id: extract_sha
+        run: |
+          SHORT_SHA=$(git rev-parse --short=7 ${{ github.sha }})
+          echo "short_sha=$SHORT_SHA" >> $GITHUB_OUTPUT
+      
